@@ -9,7 +9,11 @@ import (
 func main() {
 	h := NewSimpleHandler()
 
-	s := go_tiny_socks.NewServer(h.AuthenticationHandler)
+	s := go_tiny_socks.NewServer(
+		h.AuthenticationHandler,
+		h.DialHandler,
+		h.DnsHandler,
+	)
 
 	if err := s.ListenAndServe(":8888"); err != nil {
 		fmt.Println(err)
