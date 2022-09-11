@@ -2,6 +2,7 @@ package authenticator
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/lunelabs/go-tiny-socks/socks5"
 	"io"
@@ -13,7 +14,7 @@ const (
 )
 
 var (
-	NoSupportedAuth = fmt.Errorf("no supported authentication mechanism")
+	NoSupportedAuth = errors.New("no supported authentication mechanism")
 )
 
 type Authenticator struct {
