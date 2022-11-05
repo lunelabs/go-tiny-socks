@@ -148,7 +148,13 @@ func (s *Server) handleConnect(ctx context.Context, conn conn, req *Request) err
 		dest.IP = addr
 	}
 
-	ctx = context.WithValue(ctx, "dest_hostname", req.DestAddr.FQDN)
+	hostname := req.DestAddr.FQDN
+
+	if len(hostname) == 0 {
+		hostname = dest.IP.String()
+	}
+
+	ctx = context.WithValue(ctx, "dest_hostname", hostname)
 	ctx = context.WithValue(ctx, "dest_ip", dest.IP.String())
 
 	dial := s.dialHandler
